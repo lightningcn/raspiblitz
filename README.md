@@ -1,3 +1,6 @@
+
+目前纯google机器翻译，只为方便更多人, 如果你感觉“这翻译的神马玩意儿，让我来“， 轻点击 https://www.transifex.com/lightningcn/raspiblitz/translate/#zh_CN/readmemd开始翻译
+
 # RaspiBlitz
 *让自己的闪电节点运行-在一个漂亮的 lcd 在 raspberrypi 上运行。*
 
