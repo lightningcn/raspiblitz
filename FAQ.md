@@ -1,548 +1,521 @@
-# FAQ - Frequently Asked Questions
+# 常见问题 - 常见问题解答
 
-## How do I generate a Debug Report?
+## 如何生成调试报告？
 
-If your RaspiBlitz is not working right and you like to get help from the community, its good to provide more debug information, so other can better diagnose your problem - please follow the following steps to generate a debug report:
+如果您的RaspiBlitz工作不正常并且您希望从社区获得帮助，那么提供更多调试信息是好的，因此其他人可以更好地诊断您的问题 - 请按照以下步骤生成调试报告：
 
-- ssh into your raspiblitz as admin user with your password A
-- If you see the menu - use CTRL+C to get to the terminal
-- To generate debug report run: `./XXdebugLogs.sh`
-- Then copy all output beginning with `*** RASPIBLITZ LOGS ***` and share this
+- 使用您的密码A以管理员用户身份ssh进入您的raspiblitz
+- 如果看到菜单 - 使用CTRL + C进入终端
+- 要生成调试报告，请运行：`./ XXdebugLogs.sh`
+- 然后复制以`*** RASPIBLITZ LOGS ***'开头的所有输出并分享
 
-*PLEASE NOTICE: Its possible that this logs can contain private information (like IPs, node IDs, ...) - just share publicly what you feel OK with.*
+*请注意：此日志可能包含私人信息（如IP，节点ID，......） - 只需公开分享您的感觉。*
 
-## How to update my RaspiBlitz (AFTER version 0.98)?
+## 如何更新我的RaspiBlitz（AFTER版本0.98）？
 
-To prepare the RaspiBlitz update:
+准备RaspiBlitz更新：
 
-- main menu > OFF
-- remove power
-- remove SD card
+- 主菜单>关闭
+- 移除电源
+- 删除SD卡
 
-Now download the new RaspiBlitz SD card image and write it to your SD card .. yes you simply overwrite the old one, it's OK, all your personal data is on the HDD (if you haven't done any manual changes to the system). See details about latest SD card image here: https://github.com/rootzoll/raspiblitz#scenario-2-start-at-home
+现在下载新的RaspiBlitz SD卡映像并将其写入SD卡。是的，您只需覆盖旧的SD卡即可，所有个人数据都在HDD上（如果您没有对系统进行任何手动更改） 。有关最新SD卡图像的详细信息，请访问：https：//github.com/rootzoll/raspiblitz#scenario-2-start-at-home
 
-If done successfully, simply put the SD card into the RaspiBlitz and power on again. Then follow the instructions on the display ... and dont worry, you dont need to re-download the blockchain again.
+如果成功完成，只需将SD卡插入RaspiBlitz并再次打开电源即可。然后按照显示屏上的说明操作......别担心，您不需要再次重新下载区块链。
 
-## How to update a old RaspiBlitz (BEFORE version 0.98)?
+## 如何更新旧的RaspiBlitz（BEFORE版本0.98）？
 
-If your old RaspiBlitz if version 0.98 or higher, just follow the update instructions in the README.
+如果您的旧版RaspiBlitz版本为0.98或更高版本，请按照自述文件中的更新说明进行操作。
 
-If you run a version earlier then 0.98 you basically need to setup a new RaspiBlitz to update - but you can keep the blockchain data on the HDD, so you dont need have that long waiting time again:
+如果您运行早于0.98的版本，您基本上需要设置一个新的RaspiBlitz来更新 - 但您可以将区块链数据保留在HDD上，因此您不需要再等待很长时间：
 
-1. Close all open lightning channels you have (`lncli closeallchannels --force`) or use the menu option 'CLOSE ALL' if available. Wait until all closing transactions are done.
+1. 关闭所有打开的闪电通道（`lncli closeallchannels --force`）或使用菜单选项'CLOSE ALL'（如果可用）。等到所有结账交易完成。
 
-2. Move all on-chain funds to a wallet outside raspiblitz (`lncli --conf_target 3 sendcoins [ADDRESS]`) or use the menu option 'CHASH OUT' if available
+2. 将所有链上资金转移到raspiblitz外的钱包（`lncli --conf_target 3 sendcoins [ADDRESS]`）或使用菜单选项'CHASH OUT'（如果有的话）
 
-3. Prepare the HDD for the new setup by running the script `/home/admin/XXcleanHDD.sh` (Blockchain will stay on HDD)
+3. 通过运行脚本`/ home / admin / XXcleanHDD.sh`为新设置准备硬盘（区块链将保留在硬盘上）
 
-4. then shutdown RaspiBlitz (`sudo shutdown now`), flash SD card with new image, redo a fresh setup of RaspiBlitz, move your funds back in, Re-Open your channels
+4. 然后关闭RaspiBlitz（`sudo shutdown now`），用新图像刷SD卡，重做RaspiBlitz的全新设置，重新调入你的资金，重新打开你的频道
 
-## Why do I need to re-burn my SD card for an update?
+## 为什么我需要重新刻录SD卡才能进行更新？
 
-I know it would be nicer to run just an update script and you are ready to go. But then the scripts would need to be written in a much more complex way to be able to work with any versions of LND and Bitcoind (they are already complex enough with all the edge cases) and testing would become even more time consuming than it is now already. That's nothing a single developer can deliver. 
+我知道只运行一个更新脚本会更好，你准备好了。但是这些脚本需要以更复杂的方式编写，以便能够使用任何版本的LND和Bitcoind（它们已经足够复杂并且具有所有边缘情况）并且测试将变得比它更耗时。现在已经。这不是单个开发人员可以提供的。
 
-For some, it might be a pain point to make an update by re-burning a new sd card - especially if you added your own scripts or made changes to the system - but thats by design. It's a way to enforce a "clean state" with every update - the same state that I tested and developed the scripts with. The reason for that pain: I simply cannot write and support scripts that run on every modified system forever - that's simply too much work.
+对于某些人来说，通过重新刻录新的SD卡进行更新可能是一个痛点 - 特别是如果您添加了自己的脚本或对系统进行了更改 - 但这是设计的。这是一种在每次更新时强制执行“干净状态”的方法 - 与我测试和开发脚本的状态相同。这种痛苦的原因：我根本无法编写和支持在每个修改过的系统上永久运行的脚本 - 这简直太过分了。
 
-With the SD card update mechanism I reduce complexity, I deliver a "clean state" OS, LND/Bitcoind and the scripts tightly bundled together exactly in the dependency/combination like I tested them and its much easier to reproduce bug reports and give support that way.
+使用SD卡更新机制，我降低了复杂性，我提供了一个“干净状态”操作系统，LND / Bitcoind和脚本紧密捆绑在一起的依赖/组合，就像我测试它们一样，它更容易重现错误报告并提供支持办法。
 
-Of course, people should modify the system, add own scripts, etc ... but if you want to also have the benefit of the updates of the RaspiBlitz, you have two ways to do it:
+当然，人们应该修改系统，添加自己的脚本等...但是如果你想要获得RaspiBlitz更新的好处，你有两种方法可以做到：
 
-1. Contribute your changes back to the main project as pull requests so that they become part of the next update - the next SD card release.
+1. 将您的更改作为拉取请求返回到主项目，以便它们成为下一次更新的一部分 - 下一个SD卡版本。
 
-2. Make your changes so that they survive an SD card update easily - put all your scripts and extra data onto the HDD AND document for yourself how to activate them again after an update .. maybe even write a small shell script (stored on your HDD) that installes & configs all your additional packages, software and scripts.
+2. 进行更改，以便他们能够轻松更新SD卡 - 将所有脚本和额外数据放入HDD和文档中，以便在更新后如何再次激活它们。甚至可以编写一个小的shell脚本（存储在硬盘上）安装和配置所有附加软件包，软件和脚本。
 
-*BTW there is a beneficial side effect when updating with a new SD card: You also get rid of any malware or system bloat that happened in the past. You start with a fresh system :)*
+* BTW使用新的SD卡进行更新时会产生有益的副作用：您还可以摆脱过去发生的任何恶意软件或系统膨胀。你从一个新系统开始：）*
 
-## How can I avoid using a prepared blockchain and validate myself?
+## 如何避免使用准备好的区块链并验证自己？
 
-The torrent and FTP download use a prepared blockchain to kick start the RaspiBlitz. If you want to selft validate you could do this on another more powerful computer and then transfere your own validated blockchain over to the RaspiBlitz. Check the options `Copying from another Computer` & `Cloning from a 2nd HDD` described in the [README](README.md) for more details.
+torrent和FTP下载使用准备好的区块链来启动RaspiBlitz。如果您想要自我验证，您可以在另一台功能更强大的计算机上执行此操作，然后将您自己经过验证的区块链转移到RaspiBlitz。有关详细信息，请查看[自述文件]（README.md）中所述的“从另一台计算机复制”和“从第二台硬盘克隆”选项。
 
-## I have the full blockchain on another computer. How do I copy it to the RaspiBlitz?
+## 我在另一台计算机上有完整的区块链。如何将其复制到RaspiBlitz？
 
-Copying a already synced blockchain from another computer (for example your Laptop) can be a quick way to get the RaspiBlitz started or replacing a corrupted blockchain with a fresh one. Also that way you synced and verified the blockchain yourself and not trusting the RaspiBlitz FTP/Torrent downloads (dont trust, verify).
+从另一台计算机（例如您的笔记本电脑）复制已经同步的区块链可以快速启动RaspiBlitz或用新的区块链替换损坏的区块链。另外，您自己同步并验证了区块链，并且不信任RaspiBlitz FTP / Torrent下载（不信任，验证）。
 
-One requirement is that the blockchain is from another bitcoin-core client with version greater or equal to 0.17.1 with transaction index switched on (`txindex=1` in the `bitcoin.conf`). 
+一个要求是区块链来自另一个比特币核心客户端，其版本大于或等于0.17.1且事务索引已打开（`bitcoin.conf`中的`txindex = 1`）。
 
-But we dont copy the data via USB to the device, because the HDD needs to be formatted in EXT4 and that is usually not read/writeable by Windows or Mac computers. So I will explain a way to copy the data through your local network. This should work from Windows, Mac, Linux and even from another already synced RaspiBlitz.
+但我们不会通过USB将数据复制到设备，因为硬盘需要在EXT4中格式化，而Windows或Mac计算机通常无法读取/写入。所以我将解释一种通过本地网络复制数据的方法。这应该可以在Windows，Mac，Linux甚至另一个已经同步的RaspiBlitz中使用。
 
-Both computers (your RaspberryPi and the other computer with the full blockchain on) need to be connected to the same local network. Make sure that bitcoin is stoped on the computer containing the blockchain. If your blockchain source is another RaspiBlitz run on the terminal `sudo systemctl stop bitcoind` and then go to the directory where the blockchain data is with `cd /mnt/hdd/bitcoin` - when copy/transfer is done later reboot a RaspiBlitz source with `sudo shutdown -r now`.
+两台计算机（您的RaspberryPi和其他具有完整区块链的计算机）需要连接到同一本地网络。确保比特币在包含区块链的计算机上停止运行。如果您的区块链源是在终端`sudo systemctl stop bitcoind`上运行的另一个RaspiBlitz，然后转到区块链数据所在的目录`cd / mnt / hdd / bitcoin`  - 稍后复制/传输时重新启动RaspiBlitz源用`sudo shutdown -r now`。
 
-If everything of the above is prepared, start the setup of the new RaspiBlitz with a fresh SD card (like explained in the README) - its OK that there is no blockchain data on your HDD yet - just follow the setup. When you get to the setup-point `Getting the Blockchain` choose the COPY option. Starting from version 1.0 of the RaspiBlitz this will give you further detailed instructions how to transfer the blockchain data onto your RaspiBlitz. In short: On your computer with the blockchain data source you will execute SCP commands, that will copy the data over your Local Network to your RaspiBlitz. 
+如果准备好以上所有内容，请使用新的SD卡开始设置新的RaspiBlitz（如自述文件中所述） - 可以确定硬盘上没有区块链数据 - 只需按照设置进行操作即可。当你到达设置点“获取区块链”时，选择COPY选项。从RaspiBlitz的1.0版本开始，这将为您提供有关如何将区块链数据传输到RaspiBlitz的更详细说明。简而言之：在具有区块链数据源的计算机上，您将执行SCP命令，该命令将通过本地网络将数据复制到RaspiBlitz。
 
-Once you finished all the transferes the Raspiblitz will make a quick-check on the data - but that will not guarantee that everything in detail was OK with the transfer. Check further FAQ answeres if you get stuck or see a final sync with a value below 90%.
+一旦你完成了所有的转移，Raspiblitz将对数据进行快速检查 - 但这并不能保证传输中的所有细节都可以。如果您遇到困难或查看价值低于90％的最终同步，请进一步查看常见问题解答。
 
-**If you want to replace a corrupted blockchain this way:**  *Go to terminal - maybe with CTRL+c. Then call `/home/admin/50copyHDD.sh` use the displayed SCP commands to copy over the fresh blockchain. Press ENTER when all is copied, so that the script can quick check the data. Then make a reboot `sudo shutdown -r now`*
+**如果你想用这种方式替换损坏的区块链：** *转到终端 - 也许用CTRL + c。然后调用`/ home / admin / 50copyHDD.sh`使用显示的SCP命令复制新的区块链。全部复制后按ENTER键，脚本可以快速检查数据。然后重新启动`sudo shutdown -r now` *
 
-## How do I clone the Blockchain from a 2nd HDD?
+## 如何从第二个硬盘克隆区块链？
 
-During setup, when you start with an empty HDD you need to get a copy of the blockchain. One option available is to connect a 2nd HDD to the RaspiBlitz that contains already the blockchain data and start to copy/clone.
+在设置过程中，当您从空HDD开始时，您需要获得区块链的副本。可用的一个选项是将第二个HDD连接到RaspiBlitz，该RaspiBlitz已包含区块链数据并开始复制/克隆。
 
-If you choose this option, the console requests you to connect the second HDD and will autmatically detect it:
+如果选择此选项，控制台会要求您连接第二个HDD并自动检测它：
 
-![SSH6b](pictures/ssh6b-copy.png)
+！[SSH6b（图片/ ssh6b-copy.png）
 
-You can simply use the HDD of another RaspiBlitz or you prepare a HDD yourself by:
+您可以简单地使用另一台RaspiBlitz的硬盘驱动器，或者您自己准备一台硬盘驱动器：
 
-* format second HDD with exFAT (availbale on Windows and Mac)
-* copy an indexed Blockchain into the root folder "bitcoin"
-* when your HDD is ready the content of your folder bitcoin should look like this:
-
-```
-/bitcoin/blocks
-/bitcoin/chainstate
-/bitcoin/indexes
-```
-
-optional you can add also the testnet data:
+* 使用exFAT格式化第二个硬盘（Windows和Mac上的availbale）
+* 将索引的区块链复制到根文件夹“比特币”
+* 当您的硬盘准备就绪时，您的文件夹比特币的内容应如下所示：
 
 ```
-/bitcoin/testnet3/blocks
-/bitcoin/testnet3/chainstate
-/bitcoin/testnet3/indexes
+/比特币/块
+/比特币/ chainstate
+/比特币/索引
 ```
 
-To connect the 2nd HDD to the RaspiBlitz, the use of a Y cable to provide extra power is recommended (see optional shopping list). Because the RaspiBlitz cannot run 2 HDDs without extra power. For extra power you can use a battery pack (like in picture below) or choose a external HDD with its own power supply.
+可选您还可以添加testnet数据：
 
-![ExtraPower](pictures/extrapower.png)
+```
+/比特币/ testnet3 /块
+/比特币/ testnet3 / chainstate
+/比特币/ testnet3 /索引
+```
 
-## Why is my "final sync" taking so long?
+要将第二个HDD连接到RaspiBlitz，建议使用Y电缆提供额外的电源（请参阅可选购物清单）。因为RaspiBlitz无法在没有额外电源的情况下运行2个HDD。如需额外电源，您可以使用电池组（如下图所示）或选择带有自己电源的外置硬盘。
 
-First of all if you see a final sync over 90% and you can see from time to time small increase - you should be OK ... this can take some looong time to catch up with the network. Only in the case that you activly choose the `SYNC` option in the `Getting the Blockchain` a final sync under 90% is OK. If you did a torrent, a FTP or a copy from another computer and seeing under 90% somthing went wrong and the setup process is ignoring your prepared Blockchain and doing a full sync - which can almost take forever on a raspberryPi.
+！[ExtraPower（图片/ extrapower.png）
 
-So if something is wrong (like mentioned above) then try again from the beginning. You need to reset your HDD for a fresh start: SSH in as admin user. Abort the final sync info with CTRL+c to get to the terminal. There run `sudo /home/admin/XXcleanHDD.sh -all` and follow the script to delete all data in HDD. When finsihed power down with `sudo shutdown now`. Then make a fresh SD card from image and this time try another option to get the blockchain. If you run into trouble the second time, please report an issue on GitHub.
+## 为什么我的“最终同步”需要这么长时间？
 
-## How to backup my Lightning Node?
+首先，如果你看到最终同步超过90％，你可以不时看到小幅增加 - 你应该没问题......这可能需要一些时间来赶上网络。只有当您在“获取区块链”中激活地选择“SYNC”选项时，最终同步低于90％才可以。如果你做了一个torrent，一个FTP或来自另一台计算机的副本，看到90％以下的东西出错了，设置过程忽略了你准备好的Blockchain并进行完全同步 - 这几乎可以永远在raspberryPi上。
 
-CAUTION: Restoring a backup can lead to LOSS OF ALL CHANNEL FUNDS if it's not the latest channel state. There is no perfect backup solution for lightning nodes yet - this topic is in development by the community.
+因此，如果出现问题（如上所述），请从头开始重试。您需要重新启动硬盘才能重新启动：以管理员用户身份登录。使用CTRL + c中止最终同步信息以进入终端。运行`sudo /home/admin/XXcleanHDD.sh -all`并按照脚本删除HDD中的所有数据。当'sudo shutdown now`的时候finsihed掉电。然后从图像中制作一张新的SD卡，这次尝试另一种方法来获取区块链。如果您第二次遇到麻烦，请在GitHub上报告问题。
 
-But there is one safe way to start: Store your LND wallet seed (list of words you got on wallet creation) in a safe place. Its the key to recover access to your on-chain funds - your coins that are not bound in an active channel.
+## 如何备份我的Lightning节点？
 
-Recovering the coins that you have in an active channel is a bit more complicated. Because you have to be sure that you really have an up to date backup of your channel state data. The problem is: If you post an old state of your channel, to the network this looks like an atempt to cheat, and your channel partner is allowed claim all the funds in the channel.
+注意：如果备份不是最新的通道状态，则恢复备份可能会导致丢失所有通道资金。目前还没有针对闪电节点的完美备份解决方案 - 社区正在开发此主题。
 
-To really have a reliable backup, such feature needs to be part of the LND software. Almost every other solution would not be perfect. Thats why RaspiBlitz is not trying to provide a backup feature at the moment.
+但有一种安全的方法可以开始：将您的LND钱包种子（创建钱包时的单词列表）存放在安全的地方。它是恢复对您的连锁资金的访问权的关键 - 您的硬币不受活跃渠道的约束。
 
-But you can try to backup at your own risk. All your Lightning Node data is within the `/mnt/hdd/lnd` directory. Just run a backup of that data when the lnd service is stopped -> `sudo systemctl stop lnd` Then on your laptop you go with the terminal into the directory you want to store the backup in and use the following SCP command to download: 
+恢复活动通道中的硬币有点复杂。因为您必须确保您确实拥有频道状态数据的最新备份。问题是：如果您将频道的旧状态发布到网络，这看起来像是作弊的尝试，并且您的频道合作伙伴可以获得频道中的所有资金。
 
-`scp -r bitcoin@[LOCAL-IP-OF-RASPIBLITZ]:/mnt/hdd/lnd/ ./` use your password A
+要真正拥有可靠的备份，这些功能需要成为LND软件的一部分。几乎所有其他解决方案都不会是完美的。这就是为什么RaspiBlitz目前不试图提供备份功能的原因。
 
-And if you want to put a LND backup state back. Make a fresh RaspiBlitz (new sd card image and a clean HDD), set it up until its ready (you see the status screen on LCD) and then go to terminal, stop lnd service with `sudo systemctl stop lnd` delete the content of the lnd data dir with `sudo rm -rf /mnt/hdd/lnd/*`. Then on your laptop being in terminal in the same directory you did the backup in (the backuped lnd directory is listed there) run the following SCP command:
+但您可以尝试备份，风险自负。您的所有Lightning节点数据都在`/ mnt / hdd / lnd`目录中。只需在lnd服务停止时运行该数据的备份 - >`sudo systemctl stop lnd`然后在您的笔记本电脑上，您将终端放入要存储备份的目录中，并使用以下SCP命令下载：
 
-`scp -r ./lnd/* bitcoin@[LOCAL-IP-OF-RASPIBLITZ]:/mnt/hdd/lnd/` use password A
+`scp -r bitcoin @ [LOCAL-IP-OF-RASPIBLITZ]：/ mnt / hdd / lnd /./`使用你的密码A
 
-No run a reboot with: `sudo shutdown -r now` ... LND may need some longer rescan after reboot, but then you should see your old channels and balances. 
+如果你想恢复LND备份状态。制作一个新的RaspiBlitz（新的SD卡图像和一个干净的HDD），将其设置为准备好（你在LCD上看到状态屏幕）然后转到终端，用`sudo systemctl stop lnd`停止lnd服务删除内容使用`sudo rm -rf / mnt / hdd / lnd / *`的lnd数据目录。然后，在您的笔记本电脑位于同一目录中的终端中，您进行了备份（在那里列出了备份的lnd目录）运行以下SCP命令：
 
-**Be aware that if backup is some hours/days old, channels could have been closed by the other party and it may take some time until you see funds back on-chain. If backup is somewhat older also the channel counter parties may have used your offline time to cheat you with an old state. And if your backup was not the latest state and LND is closing channels it could also been happening that you are posting an old channel state (seen as cheating) and funds of that channel get lost as punishment. So again .. this backup method can be risky, use with caution.**
+`scp -r ./lnd/* bitcoin @ [LOCAL-IP-OF-RASPIBLITZ]：/ mnt / hdd / lnd /`使用密码A
 
-## What is this mnemonic seed word list?
+没有运行重启：`sudo shutdown -r now` ...重启后LND可能需要更长时间的重新扫描，但是你应该看到旧的通道和余额。
 
-With the 24 word list given you by LND on wallet creation you can recover your private key (BIP 39). You should write it down and store it at a save place. 
+**请注意，如果备份是几个小时/几天，通道可能已被另一方关闭，可能需要一些时间，直到您看到资金回到链上。如果备份时间稍长，则频道对方可能已使用您的离线时间欺骗您使用旧状态。如果你的备份不是最新状态而且LND正在关闭频道，那么你也可能发生了一个旧的频道状态（被视为作弊），并且该频道的资金会因为惩罚而丢失。所以再次..这种备份方法可能有风险，请谨慎使用。**
 
-For more background on mnemonic seeds see this video: https://www.youtube.com/watch?v=wWCIQFNf_8g
+## 这个助记符种子单词列表是什么？
 
-## How does PASSWORD D effects the word seed?
+通过LND在钱包创建时为您提供的24字列表，您可以恢复您的私钥（BIP 39）。你应该把它写下来并存放在保存的地方。
 
-On wallet creation you get asked if you want to protect your word seed list with an additional password. If you choose so, RaspiBlitz recommends you to use your PASSWORD D at this point.
+有关助记符种子的更多背景，请参阅此视频：https：//www.youtube.com/watch？v = wWCIQFNf_8g
 
-To use a an additional password for your seed words is optional. If you choose so, you will need the password to recover your private key from your your seed words later on. Without this password your private key cannot be recovered from your seed words. So the password adds an additional layer of security, if someone finds your written down word list.
+## PASSWORD D如何影响种子这个词？
 
-## How can I recover my coins from a failing RaspiBlitz?
+在钱包创建时，系统会询问您是否要使用其他密码保护您的单词种子列表。如果您选择这样，RaspiBlitz建议您此时使用您的PASSWORD D.
 
-You might run into a situation where your hardware fails or the software starts to act buggy. So you decide to setup a fresh RaspiBlitz, like in the chapter above "Update to a new SD Card Release" - but the closing channels and cashing out is not working anymore. So whats about the funds you already have on your failing setup?
+为种子单词使用附加密码是可选的。如果您选择这样，您将需要密码才能从您的种子词中恢复您的私钥。如果没有此密码，您的私钥将无法从种子词中恢复。因此，如果有人找到您写下的单词列表，密码会增加额外的安全层。
 
-There is not a perfect way yet to backup/recover your coins, but you can try the following to make the best out of the situation:
+## 如何从失败的RaspiBlitz中恢复我的硬币？
 
-### 1) Recover from Wallet Seed
+您可能会遇到硬件出现故障或软件开始出现故障的情况。因此，您决定设置一个新的RaspiBlitz，就像上面“更新到新的SD卡发布”中的章节一样 - 但关闭频道和兑现不再有效。关于你在失败的设置中已有的资金怎么样？
 
-Remember those 24 words you were writing down during the setup? Thats your "cipher seed" - now this words are important to recover your wallet. If you dont have them anymore: skip this chapter and read option 2. If you still have the cypher seed: good, but read the following carefully:
+还没有完美的方法来备份/恢复您的硬币，但您可以尝试以下方法来充分利用这种情况：
 
-With the cypher seed you can recover the bitcoin wallet that LND was managing for you - but it does not contain all the details about the channels you have open - its just the key to your funding wallet. If you were able to close all channels or never opened any channels, then everything is OK and you can go on. If you had open channels with funds in there, the following is to consider:
+### 1）从钱包种子中恢复
 
-* You now rely on your channel counter parts to force close the channel at one point. If they do, the coins will be available to use in your funding wallet again at one point in the future - after force close delay.
-* If your channel counter parts never force close the channel (because they are offline too) your channel funds can be frozen forever.
+还记得你在设置过程中写下的那24个单词吗？这就是你的“密码种子” - 现在这句话对于收回你的钱包非常重要。如果你不再拥有它们：跳过本章并阅读选项2.如果你仍然有密码：好，但请仔细阅读以下内容：
 
-So going this way there is a small risk, that you will not recover your funds. But normally if your channel counter parts are still online, see that you will not come back online and they have themselves some funds on their channel side with you: They have an incentive to force close the channel to make use of their funds again.
+使用密码种子，您可以恢复LND为您管理的比特币钱包 - 但它不包含您打开的频道的所有详细信息 - 它只是您资金钱包的关键。如果您能够关闭所有频道或从未打开任何频道，那么一切正常，您可以继续。如果您在那里有资金的开放渠道，则需要考虑以下因素：
 
-So here is what todo if you want to "Recover from Wallet Seed" with RaspiBlitz:
+* 您现在依靠通道计数器部件强制关闭通道。如果他们这样做，硬币将在未来的某一点再次用于您的资金钱包 - 在强制关闭延迟之后。
+* 如果您的频道反对部分从不强行关闭频道（因为它们也处于离线状态），您的频道资金可以永久冻结。
 
-- SetUp a fresh RaspiBlitz (fresh SD-Card image and clean HDD).
-- During the new SetUp you get to the point of creating the LND wallet (see image below).
+因此，以这种方式存在一个小风险，您将无法收回您的资金。但通常情况下，如果您的频道反对部分仍在线，请注意您不会再回到网上，并且他们在频道方面拥有一些资金：他们有动力强制关闭频道再次使用他们的资金。
 
-![SSH8](pictures/wallet-recover.png)
+所以如果你想用RaspiBlitz“从钱包种子中恢复”，这就是todo：
 
-- When you get asked "do you have an existing cypher wallet" answere `y` this time.
-- Enter the cypher seed - all words in one line seperated by spaces
-- If you get asked at the end for the password D to encrypt your cypher seed, use the same as the last time. If you havent entered one last time, just press Enter again.
-- When asked about the "address look-ahead" number - use `250000` instead of the default!
+- 设置一个新的RaspiBlitz（新鲜的SD卡图像和干净的硬盘）。
+- 在新的SetUp中，您可以创建LND钱包（请参见下图）。
 
-Then give LND some time to rescan the blockchain. In the end you will have restored your funding wallet. You maybe need to wait for your old channel counter parts to force close the old channels until you see the coins back displayed.
+！[SSH8（图片/钱包recover.png）
 
-*Important: If you see a zero balance for on-chain funds after restoring from seed ... see details discussed [here](https://github.com/rootzoll/raspiblitz/issues/278) - you might try setup fresh this time with bigger look-ahead number.*
+- 当你被问到“你有一个现有的密码钱包”这次回答“你好”时。
+- 输入密码种子 - 一行中的所有单词用空格分隔
+- 如果在最后询问密码D以加密您的密码种子，请使用与上次相同的密码。如果您最后一次没有输入，请再次按Enter键。
+- 当被问及“地址预见”号码时 - 使用“250000”代替默认值！
 
-### 2) LND Channel State Backup
+然后给LND一些时间重新扫描区块链。最后，您将恢复您的资金钱包。您可能需要等待旧的通道计数器部件强制关闭旧通道，直到您看到显示的硬币。
 
-This second option is very very risky and can lead to complete loss of funds. And it olny can work, if you can still access the HDD content of your failing RaspiBlitz. It should only be used if you lost your cypher seed for the option above, forgot your cypher seed encryption password or your old channel counter parts are offline, too.
+*重要提示：如果您在从种子恢复后看到连锁资金的零余额...请参阅[此处]（https://github.com/rootzoll/raspiblitz/issues/278）讨论的详细信息 - 您可以尝试设置新鲜这次有更大的前瞻数字。*
 
-What you do is in priciple:
-- Make a copy of the HDD directory `/mnt/hdd/lnd`
-- Setup a fresh RaspiBlitz
-- Stop LND with `sudo systemctl stop lnd`
-- Replace the new `/mnt/hdd/lnd` with your backuped version
-- Make sure everything in `/mnt/hdd/lnd` is owned by bitcoin:bitcoin
-- Reboot the RaspiBlitz
+### 2）LND信道状态备份
 
-This is highly experimental. And again: If you restore the LND with an backup that is not representing the latest channel state, this will trigger the lightning "penalty" mechanism - allowing your channel counter part to grab all the funds from a channel. Its a measure of last resort. But if its working for you, let us know.
+第二种选择风险非常大，可能导致资金全部流失。如果你仍然可以访问失败的RaspiBlitz的硬盘内容，它就可以工作了。只有在您丢失了上述选项的密码种子，忘记了密码种子加密密码或者您的旧频道计数器部分也处于脱机状态时，才应该使用它。
 
-## How do I change the Name/Alias of my lightning node
+你做的是原则：
+- 制作HDD目录`/ mnt / hdd / lnd`的副本
+- 设置一个新的RaspiBlitz
+- 用`sudo systemctl stop lnd`停止LND
+- 用你的备份版本替换新的`/ mnt / hdd / lnd`
+- 确保`/ mnt / hdd / lnd`中的所有内容都归比特币所有：比特币
+- 重新启动RaspiBlitz
 
-Use the "Change Name/Alias of Node" option in the main menu. The RaspiBlitz will make a reboot after this.
+这是高度实验性的。并再次说明：如果您使用不代表最新频道状态的备份恢复LND，这将触发闪电“惩罚”机制 - 允许您的频道计数器部分从频道获取所有资金。它是万不得已的措施。但如果它为你工作，请告诉我们。
 
-## What to do when on SSH I see "WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!"
+## 如何更改闪电节点的名称/别名
 
-This means, that he public ssh key of the RaspiBlitz has changed to the one you logged in the last time under that IP.
+使用主菜单中的“更改节点的名称/别名”选项。 RaspiBlitz将在此之后重新启动。
 
-It's OK when happening during an update - when you changed the sd card image. If it's really happening out of the blue - check your local network setup for a second. Maybe the local IP of your RaspiBlitz changed? Is there a second RaspiBlitz connected? It's a security warning, so at least take some time to check if anything is strange. But also don't get to panic - when it's in your local network, normally it's some network thing - not an intruder.
+## 在SSH上做什么我看到“警告：远程主机识别已经改变！”
 
-To fix this and to be able to login with SSH again, you have to remove the old public key for that IP from your local client computer. Just run the following command (with the replaced IP of your RaspiBlitz): `ssh-keygen -R IP-OF-YOUR-RASPIBLITZ` or remove the line for this IP manually from the known_hosts file (see the path to the file in the warning message).
+这意味着，RaspiBlitz的公共ssh密钥已更改为您在该IP下最后一次登录的密钥。
 
-After that, you should be able to login with SSH again.
+在更新期间发生这种情况是可以的 - 当您更改SD卡图像时。如果它真的发生了 - 请检查您的本地网络设置一秒钟。也许您的RaspiBlitz的本地IP发生了变化？是否连接了第二个RaspiBlitz？这是一个安全警告，所以至少需要一些时间来检查是否有什么奇怪的。但也不要惊慌 - 当它在你的本地网络中时，通常它是一些网络的东西 - 而不是入侵者。
 
-## When using Auto-Unlock, how much security do I lose?
+要解决此问题并且能够再次使用SSH登录，您必须从本地客户端计算机中删除该IP的旧公钥。只需运行以下命令（使用RaspiBlitz的替换IP）：`ssh-keygen -R IP-OF-YOUR-RASPIBLITZ`或从known_hosts文件中手动删除此IP的行（请参阅该文件的路径）警告信息）。
 
-The idea of the "wallet lock" in general, is that your private key / seed / wallet is stored in a encrypted way on your HDD. On every restart, you have to input the password once manually (unlock your wallet), so that the LND can read and write to the encrypted wallet again. This improves your security if your RaspiBlitz gets stolen or taken away - it loses power and then your wallet is safe - the attacker cannot access your wallet.
+之后，您应该能够再次使用SSH登录。
 
-When you activate the "Auto-Unlock" feature of the RaspiBlitz, the password of the wallet gets stored on the RaspiBlitz. So if an attacker steals the RaspiBlitz physically, it's now possible for them to find the password and unlock the wallet.
+## 使用自动解锁时，我会失去多少安全保障？
 
-## I connected my HDD but it still says 'Connect HDD' on the display?
+一般来说，“钱包锁定”的想法是您的私钥/种子/钱包以加密的方式存储在您的硬盘上。每次重启时，您必须手动输入密码（解锁钱包），以便LND可以再次读取和写入加密的钱包。如果您的RaspiBlitz被盗或被带走，这会提高您的安全性 - 它会断电，然后您的钱包就安全了 - 攻击者无法访问您的钱包。
 
-Your HDD may have no partitions yet. SSH into the RaspiBlitz as admin (see command and password on display) and you should be offered the option to create a partition. If this is not the case:
+当您激活RaspiBlitz的“自动解锁”功能时，钱包的密码将存储在RaspiBlitz上。因此，如果攻击者在物理上窃取RaspiBlitz，现在他们可以找到密码并解锁钱包。
 
-Check/Exchange the USB cable. Connect the HDD to another computer and check if it shows up at all.
+## 我连接了我的硬盘但它仍然在显示屏上显示“连接硬盘”？
 
-OSX: https://www.howtogeek.com/212836/how-to-use-your-macs-disk-utility-to-partition-wipe-repair-restore-and-copy-drives/
+您的硬盘可能还没有分区。以管理员身份SSH进入RaspiBlitz（请参阅显示的命令和密码），您应该可以选择创建分区。如果不是这样的话：
 
-Windows: https://www.lifewire.com/how-to-open-disk-management-2626080
+检查/更换USB电缆。将HDD连接到另一台计算机并检查它是否完全显示。
 
-Linux/Ubuntu (desktop): https://askubuntu.com/questions/86724/how-do-i-open-the-disk-utility-in-unity
+OSX：https：//www.howtogeek.com/212836/how-to-use-your-macs-disk-utility-to-partition-wipe-repair-restore-and-copy-drives/
 
-Linux/Raspbian (command line): https://www.addictivetips.com/ubuntu-linux-tips/manually-partition-a-hard-drive-command-line-linux/
+Windows：https：//www.lifewire.com/how-to-open-disk-management-2626080
 
-## How do I shrink the QR code for connecting my Shango/Zap mobile phone?
+Linux / Ubuntu（桌面）：https：//askubuntu.com/questions/86724/how-do-i-open-the-disk-utility-in-unity
 
-Make the fonts smaller until the QR code fits into your (fullscreen) terminal. In OSX use `CMD` + `-` key. In LINUX use `CTRL`+ `-` key. On WINDOWS Putty go into the settings and change the font size: https://globedrill.com/change-font-size-putty
+Linux / Raspbian（命令行）：https：//www.addictivetips.com/ubuntu-linux-tips/manually-partition-a-hard-drive-command-line-linux/
 
-## Why is my bitcoin IP on the display red?
+## 如何缩小QR码以连接我的Shango / Zap手机？
 
-The bitcoin IP is red, when the RaspiBlitz detects that it cannot reach the port of bitcoin node from the outside. This means the bitcoin node can peer with other bitcoin nodes, but other bitcoin nodes cannot initiate a peering with you. Dont worry, you dont need a publicly reachable bitcoin node to run a (public) lightning node. If you want to change this however, you need to forward port 8333 on your router to the the RaspiBlitz. How to do this is different on every router.
+使字体变小，直到QR码适合您的（全屏）终端。在OSX中使用`CMD` +`-`键。在LINUX中使用`CTRL` +`-`键。在WINDOWS Putty上进入设置并更改字体大小：https：//globedrill.com/change-font-size-putty
 
-## Why is my node address on the display red?
+## 为什么显示屏上的比特币IP是红色的？
 
-The node address is red, when the RaspiBlitz detects that it cannot reach the port of the LND node from the outside - when the device is behind a NAT or firewall of the the router. Your node is not publicly reachable. This means you can peer+openChannel with other public nodes, but other nodes cannot peer+openChannel with you. To change this you need to forward port 9735 on your router to the the RaspiBlitz. How to do this is different on every router.
+当RaspiBlitz检测到它无法从外部到达比特币节点的端口时，比特币IP为红色。这意味着比特币节点可以与其他比特币节点对等，但其他比特币节点无法启动与您的对等。别担心，您不需要可公开访问的比特币节点来运行（公共）闪电节点。但是，如果要更改此设置，则需要将路由器上的端口8333转发到RaspiBlitz。如何做到这一点在每个路由器上都是不同的。
 
-## Why is my node address on the display yellow (not green)?
+## 为什么显示屏上的节点地址为红色？
 
-Yellow is OK. The RaspiBlitz can detect, that it can reach a service on the port 9735 of your public IP - this is in most cases the LND of your RaspiBlitz. But the RaspiBlitz cannot 100% for sure detect that this is its own LND service on that port - thats why its just yellow, not green. 
+当RaspiBlitz检测到它无法从外部到达LND节点的端口时 - 当设备位于路由器的NAT或防火墙后面时，节点地址为红色。您的节点无法公开访问。这意味着您可以与其他公共节点对等+ openChannel，但其他节点不能与您对等+ openChannel。要更改此设置，您需要将路由器上的端口9735转发到RaspiBlitz。如何做到这一点在每个路由器上都是不同的。
 
-## Can I run the RaspiBlitz as Backend for BTCPayServer?
+## 为什么我的节点在显示屏上的地址为黄色（不是绿色）？
 
-BTCPay Server is a solution to be your own payment processor to accept Lightning Payments for your online store: https://github.com/btcpayserver/btcpayserver 
+黄色没关系。 RaspiBlitz可以检测到它可以到达公共IP的端口9735上的服务 - 这在大多数情况下是RaspiBlitz的LND。但RaspiBlitz无法100％肯定地检测到这是该端口上自己的LND服务 - 这就是为什么它只是黄色而不是绿色。
 
-You can find setup instructions for a experimental setup here: https://goo.gl/KnTzLu
+## 我可以将RaspiBlitz作为BTCPayServer的Backend运行吗？
 
-Thanks to @RobEdb (ask on twitter for more details) running his demo store with RaspiBlitz: https://store.edberg.eu - buy a picture of [him and Andreas](https://store.edberg.eu/produkt/jag-andreas/) :)
+BTCPay服务器是您自己的支付处理器的解决方案，可以为您的在线商店接受Lightning Payments：https：//github.com/btcpayserver/btcpayserver
 
-## I dont have a LAN port on my Laptop - how to connect to my RaspiBlitz?
+您可以在此处找到实验设置的设置说明：https：//goo.gl/KnTzLu
 
-You dont need a LAN port on your laptop as long as you can connect over WLAN to the same LAN router/switch the RaspiBlitz is connected to .. and you are on the same local network.
+感谢@RobEdb（在Twitter上询问更多详情）与RaspiBlitz一起运行他的演示商店：https：//store.edberg.eu  - 买一张[他和安德烈亚斯]的照片（https://store.edberg.eu/produkt / jag-andreas /）:)
 
-## Is it possible to connect the Blitz over Wifi instead of using a LAN cable?
+## 我的笔记本电脑上没有LAN端口 - 如何连接到我的RaspiBlitz？
 
-A LAN cable is recommended because it reduces a possible source of error on the network connection side. But how to setup WLAN when you dont have a LAN-Router/Switch available see here: 
+只要您可以通过WLAN连接到RaspiBlitz连接到的同一个LAN路由器/交换机，您就不需要笔记本电脑上的LAN端口。您在同一个本地网络上。
+
+## 是否可以通过Wifi连接Blitz而不是使用LAN电缆？
+
+建议使用LAN电缆，因为它可以减少网络连接端可能出现的错误来源。但是，当您没有LAN-Router / Switch时，如何设置WLAN，请参见此处：
 https://github.com/Stadicus/guides/blob/master/raspibolt/raspibolt_20_pi.md#prepare-wifi
 
-## Can I directly connect the RaspiBlitz with my laptop? 
+## 我可以直接将RaspiBlitz连接到笔记本电脑吗？
 
-If you have a LAN port on your laptop - or you have a USB-LAN adapter, you can connect the RaspiBlitz directly (without a router/switch) to your laptop and share the WIFI internet connection. You can follow this [guide for OSX](https://medium.com/@tzhenghao/how-to-ssh-into-your-raspberry-pi-with-a-mac-and-ethernet-cable-636a197d055). 
+如果您的笔记本电脑上有LAN端口 - 或者您有USB-LAN适配器，则可以直接将RaspiBlitz（没有路由器/交换机）连接到笔记本电脑并共享WIFI Internet连接。您可以按照[OSX指南]（https://medium.com/@tzhenghao/how-to-ssh-into-your-raspberry-pi-with-a-mac-and-ethernet-cable-636a197d055）进行操作。
 
-In short for OSX:
+简而言之，OSX：
 
-* make sure all VPN are off (can interfere with local LAN)
-* connect with LAN directly
-* Settings > Sharing/Freigaben > activate "internet sharing" from WLAN to Ethernet
-* Settings > Network > Ethernet-Adapter > set to DHCP
-* in terminal > `ifconfig` there you should the the IP of the bridge100
-* in terminal > `arp -a` and check for an IP of a client to the bridge
-* in terminal > ssh admin@[clientIP] 
+* 确保所有VPN都关闭（可能会干扰本地LAN）
+* 直接连接局域网
+* 设置>共享/ Freigaben>激活从WLAN到以太网的“互联网共享”
+* 设置>网络>以太网适配器>设置为DHCP
+* 在终端>`ifconfig`那里你应该是bridge100的IP
+* 在终端>`arp -a`中检查客户端到网桥的IP
+* 在终端> ssh admin @ [clientIP]
 
-If anyone has expirence on doing this in Linux/Win, please share.
+如果有人在Linux / Win中执行此操作，请分享。
 
-## How do I unplug/shutdown safely without SSH
+## 如何在没有SSH的情况下安全地拔出/关闭
 
-Just removing power from the RaspiBlitz can lead to data corruption if the HDD is right in the middle of a writing process. The safest way is always to SSH into the RaspiBlitz and use the "POWER OFF" option in the main menu.
+如果硬盘正好在写入过程中，那么从RaspiBlitz断电可能会导致数据损坏。最安全的方法是始终通过SSH连接到RaspiBlitz并使用主菜单中的“POWER OFF”选项。
 
-But if cannot login with SSH and you need to power off at least remove the LAN cable (network connection)first for sometime (around 10-30 secs - until you can see no more blinking lights on the HDD) and then remove the power cable. This should minimize the risk if data corruption in this situations.
+但是，如果无法使用SSH登录并且您需要先关闭电源，至少先拆除局域网电缆（网络连接）一段时间（大约10-30秒 - 直到您看不到硬盘上没有闪烁的灯光），然后拔下电源线。如果在这种情况下数据损坏，这应该将风险降至最低。
 
-## How can I build an SD card other then the master branch?
+## 如何在主分支之外构建SD卡？
 
-There might be a new not released features in development that are not yet in the master branch - but you want to try them out. 
+开发中可能还有一个尚未发布的新功能尚未在主分支中 - 但您想尝试一下。
 
-To build a sd card image from another branch than master you follow the [Build the SD Card Image](README.md#build-the-sd-card-image) from the README, but execute the build script from the other branch and add the name of that branch as a parameter to the build script.
+要从另一个分支而不是主分支构建SD卡映像，请按照README中的[构建SD卡映像]（README.md＃build-the-sd-card-image），但从另一个分支执行构建脚本，将该分支的名称添加为构建脚本的参数。
 
-For example if you want to  make a build from the 'dev' branch you execute the following command:
+例如，如果要从“dev”分支进行构建，请执行以下命令：
 
-`wget https://raw.githubusercontent.com/rootzoll/raspiblitz/dev/build_sdcard.sh && sudo bash build_sdcard.sh 'dev'`
+`wget https://raw.githubusercontent.com/rootzoll/raspiblitz/dev/build_sdcard.sh&& sudo bash build_sdcard.sh'dev'`
 
-## How can I build an SD card from my forked GitHub Repo?
+## 如何从我的分叉GitHub Repo构建SD卡？
 
-If you fork the RaspiBlitz repo (much welcome) and you want to run that code on your RaspiBlitz, there are two ways to do that:
+如果您分叉RaspiBlitz repo（非常欢迎）并且您希望在RaspiBlitz上运行该代码，有两种方法可以做到这一点：
 
-* The quick way: For small changes in scripts, go to `/home/admin` on your running RaspiBlitz, delete the old git with `sudo rm -r raspiblitz` then replace it with your code `git clone [YOURREPO]` and `/home/admin/XXsyncScripts.sh`
+* 快速方法：对于脚本中的小变化，在运行的RaspiBlitz上转到`/ home / admin`，用`sudo rm -r raspiblitz`删除旧的git然后用你的代码`git clone [YOURREPO]`替换它。 /家/管理/ XXsyncScripts.sh`
 
-* The long way: If you like to install/remove/change services and system configurations you need to build a SD card from your own code. Prepare like in [Build the SD Card Image](README.md#build-the-sd-card-image) from the README but in the end run the command:
+* 好的方法：如果您想安装/删除/更改服务和系统配置，您需要使用自己的代码构建SD卡。从README中的[Build the SD Card Image]（README.md＃build-the-sd-card-image）中进行准备，但最后运行命令：
 
-`wget https://raw.githubusercontent.com/[GITHUB-USERNAME]/raspiblitz/[BRANCH]/build_sdcard.sh && sudo bash build_sdcard.sh [BRANCH] [GITHUB-USERNAME]
+`wget https://raw.githubusercontent.com/[GITHUB-USERNAME]/raspiblitz/[BRANCH]/build_sdcard.sh&& sudo bash build_sdcard.sh [BRANCH] [GITHUB-USERNAME]
 
-If you are then working in your forked repo and want to update the scripts on your RaspiBlitz with your latest repo changes, run `/home/admin/XXsyncScripts.sh` - thats OK as long as you dont make changes to the sd card build script - then you would need to build a fresh sd card again from your repo.
+如果您正在使用forked repo并希望使用最新的repo更改更新RaspiBlitz上的脚本，请运行`/ home / admin / XXsyncScripts.sh`  - 只要您不对sd卡构建进行更改即可脚本 - 然后你需要再次从你的仓库建立一个新的SD卡。
 
-## How to attach the RaspberryPi to the HDD?
+## 如何将RaspberryPi连接到硬盘？
 
-There are multiple ways to do it - just remember it should be easy to get to the SD card slot to remove and replace the card.
+有多种方法可以做到 - 只要记住它应该很容易到达SD卡插槽以移除和更换卡。
 
-Here is an example to use [Hook-and-loop fastener](https://en.wikipedia.org/wiki/Hook-and-loop_fastener) tape:
+以下是使用[Hook-and-loop fastener]（https://en.wikipedia.org/wiki/Hook-and-loop_fastener）磁带的示例：
 
-![ExtraPower](pictures/befestigung.jpg)
+！[ExtraPower（图片/ befestigung.jpg）
 
-## What other case options do I have?
+## 我还有哪些其他案例选择？
 
-You can replace the generic case in the shopping lists with a customized 3D printed for the RaspiBlitz called "Lightning Shell" - great work by @CryptoCloaks
+您可以使用名为“Lightning Shell”的RaspiBlitz打印的自定义3D替换购物清单中的通用案例 -  @CryptoCloaks的精彩作品
 
 https://thecryptocloak.com/product/lightningshell/
 
-![LightningShell](pictures/lightningshell.png)
+！[LightningShell（图片/ lightningshell.png）
 
-Also there are first free 3D open source files in this repo in the directory `case.3dprint` that you can selfprint. Those are much simpler then the 'Lightning Shell' and are not finished yet. But feel free to try out and improve - PullRequests welcome.
+此回购中还有第一个免费的3D开源文件，位于`case.3dprint`目录中，您可以进行自我打印。那些比'Lightning Shell'简单得多，还没有完成。但随意尝试和改进 -  PullRequests欢迎。
 
-## Are those "Under-Voltage detected" warnings a problem?
+## 那些“欠压检测”警告是否有问题？
 
-When your USB power adapter for the RaspiBlitz delivers too low power those messages with "Under-Voltage detected" (undervoltage) are shortly seen on the display. This can lead to data loss/corruption on the HDD. If you see those just one or two times that's not OK, but can be in a tolerant window. Nevertheless it make sure your USB power adapter can deliver at least 3A (big and stable is good). If you still see those warnings maybe get a second USB Power adapter just for the HDD and power the HDD through a Y-Cable - see https://en.wikipedia.org/wiki/Y-cable#USB or put a USB Hub with extra power between the raspberry and the HDD. 
+当用于RaspiBlitz的USB电源适配器功率过低时，显示屏上会很快显示“欠压检测”（欠压）信息。如果你看到那些只有一两次不合适，但可以在宽容的窗口。不过请确保您的USB电源适配器至少可以提供3A。如果您仍然看到这些警告，可能只为HDD提供第二个USB电源适配器并通过Y型电缆为HDD供电 - 请参阅https://en.wikipedia.org/wiki/Y-cable#USB
 
-## Why do we need to download the blockchain and not syncing it?
+## 为什么我们需要下载区块链而不同步它？
 
-The RaspiBlitz is powered by the RaspberryPi. The processing power of this SingleBoardComputer is too low to make a fast sync of the blockchain from the bitcoin peer to peer network during setup process (validation). To sync and index the complete blockchain could take weeks or even longer. Thats why the RaspiBlitz needs to download a prepared blockchain from another source.
+RaspiBlitz由RaspberryPi提供支持。 SingleBoardComputer的处理能力太低，无法在设置过程（验证）期间从比特币对等网络快速同步区块链。要同步和索引完整的区块链可能需要数周甚至更长时间。这就是RaspiBlitz需要从其他来源下载准备好的区块链的原因。
 
-## Is using the perpared SD card image secure?
+## 使用perpared SD卡图像是否安全？
 
-Using pre-built software almost always shifts trust to the one who made the binary. But at least you can check with the SHA checksum after download if the image downloaded is really the one offered by the GitHub Repo. To do so make a quick check if your browser is really in the correct GiutHub page and that your HTTPS of the GitHub page is signed by 'DigiCert'. Then compare the SHA-256 string (always next to the download link of the image on the README) with the result of the command `shasum -a 256 [DOWNLOADED-FILE-TO-CHECK]` (Mac/Linux). Still this is not optimal and if at least some people from the community request it, I will consider signing the download as an author for the future.
+使用预先构建的软件几乎总是将信任转移到制作二进制文件的人身上。但是如果下载的图像真的是GitHub Repo提供的图像，那么至少你可以在下载后检查SHA校验和。为此，请快速检查您的浏览器是否确实位于正确的GiutHub页面中，并且您的GitHub页面的HTTPS是否由“DigiCert”签名。然后将SHA-256字符串（总是在README上图像的下载链接旁边）与命令`shasum -a 256 [DOWNLOADED-FILE-TO-CHECK]`（Mac / Linux）的结果进行比较。这仍然不是最优的，如果社区中至少有一些人要求它，我会考虑将下载作为未来的作者签名。
 
-The best way would be to build the sd card yourself. You use the script `build_sdcard.sh` for it. Take some minutes to check if you see anything suspicious in that build script and then follow the [README](README.md#build-the-sd-card-image) on this.
- 
-## Is downloading the blockchain from a third party secure?
+最好的方法是自己制作SD卡。你使用脚本`build_sdcard.sh`。花几分钟时间检查一下您是否在该构建脚本中看到任何可疑内容，然后按照[README]（README.md＃build-the-sd-card-image）进行操作。
 
-To download a blockchain from a third party (torrent/ftp) is not optimal and for the future with more cheap & powerfull SingleBoardComputers we could get rid of this 'patch'. 
+## 从第三方下载区块链是否安全？
 
-The downloaded blockchain is pre-indexed and pre-validated. That should be practically secure enough, because if the user gets a "manipulated" blockchain it would not work after setup. The beginning of the downloaded blockchain needs to fit the genesis block (in bitcoind software) and the end of the downloaded blockchain needs not match with the rest of the bitcoin network state - hashes of new block distrubuted within the peer-2-peer network need to match the downloaded blockchain head. So if you downloaded a manipulated blockchain it simply wouldn't work in practice. As long as you are not in a totally hostile environment where someone would be able to fake a whole network of peers and miners around you - this is secure enough for running a small funded full node to try out the lightning network.
+从第三方（torrent / ftp）下载区块链并不是最佳选择，对于未来的廉价和强大的SingleBoardComputers，我们可以摆脱这个“补丁”。
 
-If you dont trust the download or you want to run the RaspiBlitz in a more production like setup (on your own risk) then don't use the torrent/ftp download and choose the option to COPY the blockchain data from a more powerful computer (laptop or desktop) where you synced, verified and indexed the blockchain all by your yourself - see [README](README.md#4-copying-from-another-computer) for more details.
+下载的区块链已预先编入索引并预先验证。这应该是足够安全的，因为如果用户获得“操纵”的区块链，它将在设置后不起作用。下载的区块链的开头需要适合创世块（在bitcoind软件中），并且下载的区块链的末端不需要与比特币网络状态的其余部分匹配 - 在对等2网络网络中需要分配的新区块的哈希值匹配下载的区块链头。因此，如果你下载了一个被操纵的区块链，它只是在实践中不起作用。只要你没有处于一个完全敌对的环境中，有人能够伪造整个同行和矿工的网络 - 这足以安全地运行一个资金不足的完整节点来试用闪电网络。
 
-## What is the "Base Torrent File"?
+如果您不相信下载或者您希望在更多生产环境中运行RaspiBlitz（风险自负），请不要使用torrent / ftp下载并选择从更强大的计算机复制区块链数据的选项（笔记本电脑或台式机）您可以自己同步，验证和索引区块链 - 有关详细信息，请参阅[自述文件]（README.md＃4-copies-from-another-computer）。
 
-Inspired by the website getbitcoinblockchain.com we use one of their base torrent files to have a basic set of blocks - that will not change for the future. This torrent contains most of the data (the big file) and we dont need to change the torrent for a long time. This way the torrent can get establish a wide spread seeding and the torrent network can take the heavy load.
+## 什么是“基础洪流文件”？
 
-At the moment (Baseiteration=1) this is just the bitcoin blk and rev files up to the number:
-- /blocks : 01390
-- /testnet3/blocks: 00152
+受网站getbitcoinblockchain.com的启发，我们使用他们的一个基本torrent文件来拥有一组基本的块 - 这些将来不会改变。此torrent包含大部分数据（大文件），我们不需要长时间更改torrent。通过这种方式，洪流可以建立广泛的播种种子，洪流网络可以承受沉重的负担。
 
-For litecoin (Baseiteration=1) its blk and rev files up to the number:
-- /blocks : 00124
+目前（Baseiteration = 1）这只是比特币blk和rev文件到数字：
+- / blocks：01390
+- / testnet3 / blocks：00152
 
-The base torrent file should always have the following naming scheme:
+对于litecoin（Baseiteration = 1），它的blk和rev文件最多为数字：
+- / blocks：00124
 
-`raspiblitz-[CHAINNETWORK][BASEITERATIONNUMBER]-[YEAR]-[MONTH]-[DAY]-base.torrent`
+基本torrent文件应始终具有以下命名方案：
 
-So for example the second version of the base torrent for litecoin created on 2018-10-31 would have this name: raspiblitz-litecoin2-2018-10-31-base.torrent
+`raspiblitz- [CHAINNETWORK] [BASEITERATIONNUMBER]  -  [YEAR]  -  [月]  -  [DAY] -base.torrent`
 
-## What is the "Update Torrent File" and how to create it?
+因此，例如，在2018-10-31创建的Litecoin基础洪流的第二个版本将具有此名称：raspiblitz-litecoin2-2018-10-31-base.torrent
 
-All the rest of the files get packaged into a second torrent file. This file will be updated much more often. The seeding is expected to be not that good and download may be slower, but that's OK because it's a much smaller file.
+## 什么是“更新Torrent文件”以及如何创建它？
 
-This way a good balance between good seeding and up-to-date blockchain can be reached.
+所有其余文件都打包成第二个torrent文件。此文件将更频繁地更新。播种预计不会那么好，下载可能会慢一点，但这没关系，因为它是一个小得多的文件。
 
-To create the Update Torrent file, follow the following step ...
+这样就可以在良好的播种和最新的区块链之间取得良好的平衡。
 
-Have a almost 100% synced bitcoind MAINNET with txindex=1 on a RaspiBlitz
-(remove all funds from this node - because blockchain get messed with)
+要创建Update Torrent文件，请执行以下步骤...
 
-Stop bitcoind with: 
+在RaspiBlitz上有一个几乎100％同步的bitcoind MAINNET，txindex = 1
+（从此节点中删除所有资金 - 因为区块链被搞乱了）
+
+停止bitcoind：
 ```
-sudo systemctl stop bitcoind
+sudo systemctl停止bitcoind
 ```
 
-Delete base torrent blk-files with:
+删除基础洪流blk文件：
 ```
 sudo rm /mnt/hdd/bitcoin/blocks/blk00*.dat
 sudo rm /mnt/hdd/bitcoin/blocks/blk0{1000..1390}.dat
 ```
 
-Delete base torrent rev-files with:
+删除基本种子rev文件：
 ```
 sudo rm /mnt/hdd/bitcoin/blocks/rev00*.dat
 sudo rm /mnt/hdd/bitcoin/blocks/rev0{1000..1390}.dat
 ```
 
-Now change to your computer where you package the torrent files and transfere the three directories into your torrent base directory (should be your current working directory):
+现在更改到您打包torrent文件的计算机，并将三个目录转移到torrent基目录（应该是您当前的工作目录）：
 ```
-scp -r bitcoin@[RaspiBlitzIP]:/mnt/hdd/bitcoin/blocks ./blocks
-scp -r bitcoin@[RaspiBlitzIP]:/mnt/hdd/bitcoin/chainstate ./chainstate
-scp -r bitcoin@[RaspiBlitzIP]:/mnt/hdd/bitcoin/indexes ./indexes
-```
-
-Also have an almost 100% synced bitcoind TESTNET with txindex=1 on a RaspiBlitz
-
-Stop bitcoind with:
-```
-sudo systemctl stop bitcoind
+scp -r bitcoin @ [RaspiBlitzIP]：/ mnt / hdd / bitcoin / blocks ./blocks
+scp -r bitcoin @ [RaspiBlitzIP]：/ mnt / hdd / bitcoin / chainstate ./chainstate
+scp -r bitcoin @ [RaspiBlitzIP]：/ mnt / hdd / bitcoin / indexes ./indexes
 ```
 
-Delete base torrent blk-files with:
+在RaspiBlitz上还有一个几乎100％同步的bitcoind TESTNET，txindex = 1
+
+停止bitcoind：
+```
+sudo systemctl停止bitcoind
+```
+
+删除基础洪流blk文件：
 ```
 sudo rm /mnt/hdd/bitcoin/testnet3/blocks/blk000*.dat
 sudo rm /mnt/hdd/bitcoin/testnet3/blocks/blk00{100..152}.dat
 ```
 
-Delete base torrent rev-files with:
+删除基本种子rev文件：
 ```
 sudo rm /mnt/hdd/bitcoin/testnet3/blocks/rev000*.dat
 sudo rm /mnt/hdd/bitcoin/testnet3/blocks/rev00{100..152}.dat
 ```
 
-Now change again to your computer where you package the torrent files and transfer the three directories into your torrent base directory (should be your current working directory):
+现在再次更改到您的计算机，在那里打包torrent文件并将三个目录传输到torrent基目录（应该是您当前的工作目录）：
 ```
 mkdir testnet3
-scp -r bitcoin@[RaspiBlitzIP]:/mnt/hdd/bitcoin/testnet3/blocks ./testnet3/blocks
-scp -r bitcoin@[RaspiBlitzIP]:/mnt/hdd/bitcoin/testnet3/chainstate ./testnet3/chainstate
-scp -r bitcoin@[RaspiBlitzIP]:/mnt/hdd/bitcoin/testnet3/indexes ./testnet3/indexes
+scp -r bitcoin @ [RaspiBlitzIP]：/ mnt / hdd / bitcoin / testnet3 / blocks ./testnet3/blocks
+scp -r bitcoin @ [RaspiBlitzIP]：/ mnt / hdd / bitcoin / testnet3 / chainstate ./testnet3/chainstate
+scp -r bitcoin @ [RaspiBlitzIP]：/ mnt / hdd / bitcoin / testnet3 / indexes ./testnet3/indexes
 ```
 
-(Re-)name the "torrent base directory" to the same name as the torrent UPDATE file itself later (without the .torrent ending). The update torrentfile should always have the following naming schema:
+（重新）将“torrent base directory”命名为与torrent UPDATE文件本身相同的名称（没有.torrent结尾）。更新torrent文件应始终具有以下命名方案：
 
-`raspiblitz-[CHAINNETWORK][BASEITERATIONNUMBER]-[YEAR]-[MONTH]-[DAY]-update.torrent`
+`raspiblitz- [CHAINNETWORK] [BASEITERATIONNUMBER]  -  [YEAR]  -  [月]  -  [DAY] -update.torrent`
 
-*So for example an update torrent created on 2018-12-24 for litecoin that is an update to the second base torrent version would have this name: raspiblitz-litecoin2-2018-12-24-update.torrent*
+*例如，在2018-12-24为litecoin创建的更新torrent是对第二个基本torrent版本的更新将具有此名称：raspiblitz-litecoin2-2018-12-24-update.torrent *
 
-Now open your torrent client (e.g. qTorrent for OSX) and create a new torrent-file with the freshly renamed "torrent base directory" as source directory.
+现在打开你的torrent客户端（例如qTorrent for OSX）并创建一个新的torrent文件，将新重命名的“torrent base directory”作为源目录。
 
-Add this list of trackers to your torrent and start seeding (keep a free/empty line between the three single trackers):
+将此跟踪器列表添加到您的torrent并开始播种（在三个单个跟踪器之间保持空闲/空行）：
 ```
-udp://tracker.justseed.it:1337
+UDP：//tracker.justseed.it：1337
 
-udp://tracker.coppersurfer.tk:6969/announce
+UDP：//tracker.coppersurfer.tk：6969 /公布
 
-udp://open.demonii.si:1337/announce
+UDP：//open.demonii.si：1337 /公布
 
-udp://denis.stalker.upeer.me:6969/announce
+UDP：//denis.stalker.upeer.me：6969 /公布
 ```
 
-After successful creation of the torrent file:
-* copy to `/home.admin/assets`
-* push to master
-* change in `50torrentHDD.sh script`
-* add to Torrent-[RSS](https://github.com/rootzoll/raspiblitz/issues/285#issuecomment-457796120)
-* seed at home and at services like justseed.it
-* update [issue](https://github.com/rootzoll/raspiblitz/issues/285#issuecomment-457796120) and ask on twitter for help on seeding
+成功创建torrent文件后：
+* 复制到`/ home.admin / assets`
+* 推动掌握
+* 更改`50torrentHDD.sh script`
+* 添加到Torrent- [RSS]（https://github.com/rootzoll/raspiblitz/issues/285#issuecomment-457796120）
+* 种子在家里和像justseed.it这样的服务
+* 更新[问题]（https://github.com/rootzoll/raspiblitz/issues/285#issuecomment-457796120）并在twitter上询问有关播种的帮助
 
-## What is the process of creating a new sd card image release?
+## 创建新的SD卡映像的过程是什么？
 
-Work Nodes for the process of producing a new sd card image release:
+生成新SD卡映像的过程的工作节点：
 
-* Start `Ubuntu LIVE` from USB stick on Build Computer (press F12 on startup)
-* Connect secure WIFI (hardware switch on)
-* Download latest Raspbian Desktop (without recommended software) from [raspberrypi.org](https://www.raspberrypi.org/downloads/raspbian/) to the NTFS formatted data USB stick
-* Open terminal and compare checksum `shasum -a 256 /media/ubuntu/...[DOWNLOADED-RASPBIAN]`
-* Use in file manager context on NTFS USB stick `extract here` to unzip
-* Connect sd card reader with 8GB sd card
-* Use in file manager context on img-file `write image` write to sd card
-* Use in file manager context on `boot` drive free space `open in terminal`
-* Run command `touch ssh`
-* Close terminal and eject `boot`
-* Connect a RaspiBlitz (without HDD) to network, insert sd card and power up
-* Find IP if RaspiBlitz (arp -a or check router)
-* In terminal `ssh pi@[IP-OF-RASPIBLITZ]`
-* Password is `raspberry`
-* `wget https://raw.githubusercontent.com/rootzoll/raspiblitz/master/build_sdcard.sh && sudo bash build_sdcard.sh`
-* Check output for warnings/errors - install LCD
-* Login new with `ssh admin@[IP-OF-RASPIBLITZ]` (pw:raspiblitz) and run `./XXprepareRelease.sh`
-* Deconnect Wifi on build laptop (hardware switch off) and shutdown
-* Remove `Ubuntu LIVE` USB stick and replace with `Ubuntu AIRGAP`
-* PowerOn Build Laptop (press F12 for boot menu)
-* Cut Power of RaspiBlitz, remove sd card and connect with sd card reader to build laptop
-* Connect and open in Filemenager NTFS - context on white scace -> open terminal 
-* run `df`to check on sd card reader device name
-* `sudo dd if=/dev/[sdcarddevice] | gzip > ./raspiblitz-vX.X-YEAR-MONTH-DAY.img.gz`
-* Delete all IMG files from NTFS (just keep zips/gzs)
-* Context on white space, `Open in Terminal`, run `shasum -a 256 [NEW-ZIP] > sha256.txt`
-* [Do future author signing here with tools from airgap build machine]
-* Shutdown build computer
-* Connect NTFS USB stick to MacOS (its just readonly)
-* Check if file can be unzipped on OSX
-* Run tests with new image
-* Upload new image to Download Server 
-* Copy SHA256-String into GutHub README and update downloadlink 
+* 在构建计算机上从USB记忆棒启动`Ubuntu LIVE`（启动时按F12键）
+* 连接安全WIFI（硬件开关）
+* 从[raspberrypi.org]（https://www.raspberrypi.org/downloads/raspbian/）下载最新的Raspbian Desktop（无推荐软件）到NTFS格式的数据U盘
+* 打开终端并比较校验和`shasum -a 256 / media / ubuntu / ... [DOWNLOADED-RASPBIAN]
+* 在NTFS U盘上使用文件管理器上下文`extract here`解压缩
+* 使用8GB SD卡连接SD卡读卡器
+* 在img文件`write image`上的文件管理器上下文中使用写入sd卡
+* 在`boot`驱动器可用空间`在终端`中打开文件管理器上下文中使用
+* 运行命令`touch ssh`
+* 关闭终端并弹出`boot`
+* 将RaspiBlitz（无硬盘）连接到网络，插入SD卡并打开电源
+* 如果RaspiBlitz（arp -a或检查路由器）找到IP
+* 在终端`ssh pi @ [IP-OF-RASPIBLITZ]`
+* 密码是`raspberry`
+* `wget https://raw.githubusercontent.com/rootzoll/raspiblitz/master/build_sdcard.sh&& sudo bash build_sdcard.sh`
+* 检查输出是否有警告/错误 - 安装LCD
+* 使用`ssh admin @ [IP-OF-RASPIBLITZ]`（pw：raspiblitz）登录并运行`./ XXprepareRelease.sh`
+* 在构建笔记本电脑上关闭Wifi（硬件关闭）并关闭
+* 删除`Ubuntu LIVE` USB记忆棒并替换为`Ubuntu AIRGAP`
+* PowerOn Build Laptop（按F12键启动菜单）
+* 削减RaspiBlitz的力量，删除SD卡并与SD卡读卡器连接以构建笔记本电脑
+* 在Filemenager NTFS中连接并打开 - 白色scace上的上下文 - >打开终端
+* 运行`df`来检查SD卡读卡器设备名称
+* `sudo dd if = / dev / [sdcarddevice] | gzip> ./ raspiblitz-vX.X -YEAR-MONTH-DAY.img.gz`
+* 从NTFS删除所有IMG文件（只保留zips / gzs）
+* 白色空间上下文，`在终端打开`，运行`shasum -a 256 [NEW-ZIP]> sha256.txt`
+* [未来的作者在这里使用airgap build machine的工具签名]
+* 关机构建计算机
+* 将NTFS USB记忆棒连接到MacOS（只读它）
+* 检查文件是否可以在OSX上解压缩
+* 使用新图像运行测试
+* 将新图像上传到下载服务器
+* 将SHA256-String复制到GutHub README并更新downloadlink
 
-## Can I run RaspiBlitz on other computers than RaspberryPi?
+## 我可以在RaspberryPi以外的其他计算机上运行RaspiBlitz吗？
 
-There is an experimental section in this GitHub that tries to build for other SingleBoardComputers. Feel free to try it out and share your experience: [dietpi/README.md](dietpi/README.md)
+这个GitHub中有一个实验部分试图为其他SingleBoardComputers构建。随意尝试并分享您的经验：[dietpi / README.md]（dietpi / README.md）
 
-## Can I flip the screen?
+## 我可以翻转屏幕吗？
 
-For the default 3.5" LCD you need to edit the /boot/config.txt. Run `sudo nano /boot/config.txt`
-look for the line `dtoverlay=tft35a:rotate=270` towards the end. To flip the screen with 180 degrees change the line to `dtoverlay=tft35a:rotate=90` and reboot with `sudo reboot`. Reference: https://github.com/goodtft/LCD-show/issues/34
+对于默认的3.5“LCD，您需要编辑/boot/config.txt。运行`sudo nano / boot / config.txt`
+到最后寻找“dtoverlay = tft35a：rotate = 270”这一行。要以180度翻转屏幕，将线路更改为“dtoverlay = tft35a：rotate = 90”并使用“sudo reboot”重新启动。参考：https：//github.com/goodtft/LCD-show/issues/34
 
-## How to setup fresh/clean/reset and not getting into recovery mode?
+## 如何设置新鲜/清除/重置而不进入恢复模式？
 
-When you put in a sd card with a new/clean RaspiBlitz image the RaspiBlitz will get into recovery mode because it detects the old data on your HDD and assumes you just want to continue to work with this data. 
+当您使用新的/干净的RaspiBlitz映像放入SD卡时，RaspiBlitz将进入恢复模式，因为它检测到HDD上的旧数据并假设您只想继续使用此数据。
 
-But there might be cases where you want to start a totally fresh/clean RaspiBlitz from the beginning. To do so you need to delete the old data from the HDD. You can do so by formating it on another computer (for example with FAT and name it "NEW"). Or when you can run the script "/home/admin/XXcleanHD.sh -all" on the terminal.
+但是可能有些情况下你想从一开始就开始一个完全新鲜/干净的RaspiBlitz。为此，您需要从HDD中删除旧数据。您可以通过在另一台计算机上格式化（例如使用FAT并将其命名为“NEW”）来完成此操作。或者，当您可以在终端上运行脚本“/home/admin/XXcleanHD.sh -all”时。
 
-When the HDD is clean, then flash a new RaspiBlitz sd card and your setup should start fresh. 
+当硬盘清洁时，然后刷新一个新的RaspiBlitz SD卡，你的设置应该重新开始。
 
-## My blockchain data is corrupted - what can I do?
+## 我的区块链数据已损坏 - 我该怎么办？
 
-You could try to re-index, but that can take some very long time - multiple days or even weeks. But there are other options:
+您可以尝试重新编制索引，但这可能需要很长时间 - 多天甚至数周。但还有其他选择：
 
-1. Copy Blockchain from another Computer
+1. 从另一台计算机复制区块链
 
-You can delete the old blockchain and get a new one. See for details the FAQ question: [I have the full blockchain on another computer. How do I copy it to the RaspiBlitz?](FAQ.md#i-have-the-full-blockchain-on-another-computer-how-do-i-copy-it-to-the-raspiblitz). And even if you are not able to delete the data, first rename the undeletable folders and then follow the instructions.
+您可以删除旧区块链并获取新区块链。请参阅常见问题解答：[我在另一台计算机上拥有完整的区块链。如何将其复制到RaspiBlitz？]（FAQ.md #i-have-the-blockchain-on-another-computer-how-do-copy-it-to-raspiblitz）。即使您无法删除数据，也请先重命名不可删除的文件夹，然后按照说明进行操作。
 
-2. Re-Torrent download prepared Blockchain
+2. Re-Torrent下载准备好的Blockchain
 
-You can also start a new Torrent-Download and replace the old blockchain with a new download once its finished. Go to terminal and run script `/mnt/hdd/50torrentHDD.sh`
+你也可以开始一个新的Torrent-Download并在完成后用新的下载替换旧的区块链。转到终端并运行脚本`/ mnt / hdd / 50torrentHDD.sh`
 
-3. Backup LND Data, make fresh Blitz, Replay LND Data
+3. 备份LND数据，制作新的闪电战，重播LND数据
 
-You can backup your channel and wallet data, make a complete fresh RaspiBlitz and after that one is setup you replace the LND data with your old one. Also make sure to check again on your power supply - it needs to deliver equal or more then 3A and should deliver a stable current. If you think your HDD or SD card is degrading - maybe this is a good time to replace. See for details the FAQ question: [How can I recover my coins from a failing RaspiBlitz?](FAQ.md#how-can-i-recover-my-coins-from-a-failing-raspiblitz)*
-
-## Can I run the RaspiBlitz without a display/LCD?
-
-The display is one of the nice features of the RaspiBlitz but the raspberry can un without it. Maybe not all add-on feature could be used to the full extend, but you can get started without the LCD and even plug it on later.
-
-Normally with the LCD its easy to see your local IP changes and you can get started quickly. Without it needs a bit more digging thru your network - you can find a good tutorial on that on the RaspiBolt tutorial (origin of RaspiBlitz):
-
-https://github.com/Stadicus/guides/blob/master/raspibolt/raspibolt_20_pi.md#connecting-to-the-network
-
-*Please Note: Without a LCD-Hat you cannot simply use the HDMI as alternative, because screen signal is routed to the GPIO pins. On how to switch that back manually - see [waveshare documentation](https://www.waveshare.com/wiki/3.5inch_RPi_LCD_(A)).*
-
-## I have two RaspiBlitz in my network - can they both be public?
-
-Yes but you need to change at least on one RaspiBlitz the port number (for example to 9736) on one of your RaspiBlitzes - see how to change a port below. Then you can forward both ports from your home internet router to the matching RaspiBlitzes.
-
-## How to change the public port LND/Lightning node is running on?
-
-There is a experimental script you can call from the terminal that will make all changes for you ... see details here: https://github.com/rootzoll/raspiblitz/issues/100#issuecomment-466722712
-
-## How to solve a "signature mismatch after caveat verification" error?
-
-If you get this error by LND that means that something is wrong with the macaroons being used to communicate with LND .. see: https://github.com/lightningnetwork/lnd/blob/master/docs/macaroons.md
-
-To fix this depends on where you get this error:
-
-* If you get it in a mobile wallet, then redo the connection with the RaspiBlitz to get fresh macaroons.
-* If you get this from RTL or from the scripts of the SSH menus of the RaspiBlitz, then go to "EXPORT Macacroons and TLS.cert" in SSH main menu and choose the the "RESET Macaroons & TLS" option.
+您可以备份您的频道和钱包数据，制作一个完整的新RaspiBlitz，然后在设置之后，用旧的替换LND数据。还要确保再次检查电源 - 它需要提供等于或大于3A的电流，并且应提供稳定的电流。如果您认为您的硬盘或SD卡质量下降 - 也许这是更换的好时机。请参阅常见问题解答：[如何从失败的RaspiBlitz中恢复我的硬币？]（FAQ.md＃how-can-i-recover-my-coins-from-a-failed-raspiblitz）*
